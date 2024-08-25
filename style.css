@@ -1,5 +1,5 @@
-:root{
-    --orange: F2C14E;
+*{
+    background-color: #ffffff;
 }
 
 html, body {
@@ -10,13 +10,12 @@ html, body {
 }
 
 #board {
-    margin: 100px auto; 
-    
+    margin: 50px auto; 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
-    width: 80vmin;
-    height: 80vmin; 
+    width: 60vmin;
+    height: 60vmin; 
     max-width: 1000px; 
     max-height: 1000px; 
 }
@@ -24,11 +23,20 @@ html, body {
 .box{
     border-right: 5px solid;
     border-bottom: 5px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem; 
+    text-align: center;
 
 }
 
 h1 {
     text-align: center;
+}
+
+h2{
+    margin: 10px;
 }
 
 .box:nth-child(3n){
@@ -41,4 +49,30 @@ h1 {
 
 .box:hover{
     background-color: aliceblue;
+}
+
+#message{
+    text-align: center;
+    font-size: 5rem; 
+}
+
+.winningRow{
+    background-color: pink;
+    pointer-events: none;
+}
+
+.disabled{
+    pointer-events: none;
+}
+
+button{
+    width: 10%;
+    align-self: center;
+    border: 2px grey solid;
+    border-radius: 10px;
+}
+
+.info{
+    display: flex;
+    flex-direction: column;
 }

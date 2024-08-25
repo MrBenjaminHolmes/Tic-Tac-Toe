@@ -27,6 +27,7 @@ const player = (name, marker) =>{
     return { name, marker}
 }
  const gameController= (() => {
+    const cells = document.querySelectorAll(".box");
     const player1 = player("Player 1","X");
     const player2 = player("Player 2","O");
     currentPlayer = player1;
@@ -59,6 +60,13 @@ const player = (name, marker) =>{
         for (let pattern of winPatterns) {
             const [a, b, c] = pattern;
             if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                winningPattern = [pattern[0],pattern[1],pattern[2]];
+                cells[pattern[0]].classList.add("winningRow");
+                cells[pattern[1]].classList.add("winningRow");
+                cells[pattern[2]].classList.add("winningRow");
+                cells.forEach(cell => {
+                    cell.classList.add("disabled");
+                });
                 return currentPlayer;
             }
         }
@@ -73,6 +81,12 @@ const player = (name, marker) =>{
     const reset = () => {
         currentPlayer = player1;
         gameBoard.resetBoard();
+        cells[winningPattern[0]].classList.remove("winningRow");
+        cells[winningPattern[1]].classList.remove("winningRow");
+        cells[winningPattern[2]].classList.remove("winningRow");
+        cells.forEach(cell => {
+            cell.classList.remove("disabled");
+        });
     };
 
     return { playRound, reset, getCurrentPlayer };
@@ -89,7 +103,7 @@ const player = (name, marker) =>{
             const result = gameController.playRound(index);
             updateDisplay();
             if (result) {
-                message.textContent = result === "Tie" ? "It's a tie!" : `${result.name} wins!`;
+                message.textContent = result === "Tie" ? "It's a Draw!" : `${result.marker}'s wins!`;
             }
         });
     });
@@ -100,5 +114,11 @@ const player = (name, marker) =>{
             cell.textContent = board[index];
         });
     };
+
+    restartButton.addEventListener("click",()=>{
+        gameController.reset();
+        updateDisplay();
+        message.textContent ="";
+    })
 
 })();
